@@ -96,7 +96,7 @@ class _loginPageState extends State<loginPage> {
         borderRadius: BorderRadius.circular(30)
       ),
       child:  TextField(
-        controller: _con.emailControler,
+        controller: _con.emailController,
         keyboardType: TextInputType.emailAddress,
         decoration: InputDecoration(
           hintText: 'Correo electrónico',
@@ -122,7 +122,7 @@ class _loginPageState extends State<loginPage> {
           borderRadius: BorderRadius.circular(30)
       ),
       child:  TextField(
-        controller: _con.passwordControler,
+        controller: _con.passwordController,
         obscureText: true,
         decoration: InputDecoration(
             hintText: 'Contraseña',
