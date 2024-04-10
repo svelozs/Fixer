@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_udemy/src/pages/client/services/list/client_services_list_page.dart';
 import 'package:flutter_udemy/src/pages/login/login_page.dart';
 import 'package:flutter_udemy/src/pages/register/client_register.dart';
 import 'package:flutter_udemy/src/pages/register/register_page.dart';
@@ -26,6 +27,7 @@ class _MyAppState extends State<MyApp> {
         'login': (BuildContext context) => loginPage(),
         'register': (BuildContext context) => RegisterPage(),
         'clientregister': (BuildContext context) => ClientRegister(),
+        'client/services/list': (BuildContext context) => ClientProductsListPage(),
       },
       theme: ThemeData(
         primaryColor: MyColors.primaryColor
