@@ -13,7 +13,7 @@ class LoginController {
 
 
   UsersProvider usersProvider = new UsersProvider();
-  SharedPref _sharedPref = new SharedPref();
+  SharedPref _sharedPref = SharedPref();
 
   Future init(BuildContext context) async {
     this.context = context;
@@ -24,9 +24,9 @@ class LoginController {
     print('Usuario: ${user.toJson()}');
 
     if (user?.sessionToken != null) {
-      Navigator.pushNamedAndRemoveUntil(
-          context, 'client/services/list', (route) => false);
+      Navigator.pushNamedAndRemoveUntil(context, 'client/services/list', (route) => false);
     }
+
   }
 
   void goToRegisterPage() {
@@ -38,19 +38,22 @@ class LoginController {
     String password = passwordController.text.trim();
     ResponseApi? responseApi = await usersProvider.login(email, password);
 
-    if(responseApi!.success!){
+    if (responseApi!.success!) {
       User user = User.fromJson(responseApi.data);
-      _sharedPref.save('user', user.toJson);
+      _sharedPref.save('user', user.toJson());
       Navigator.pushNamedAndRemoveUntil(context!, 'client/services/list', (route) => false);
-    }else{
-      MySnackbar.show(context!, responseApi!.message!);
+    } else {
+      MySnackbar.show(context!, responseApi.message!);
     }
 
     print('Respuesta object: $responseApi');
     print('Respuesta: ${responseApi?.toJson()}');
   }
 
-}
+
+  }
+
+
 
 
 

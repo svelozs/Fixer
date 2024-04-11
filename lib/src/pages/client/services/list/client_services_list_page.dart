@@ -1,23 +1,19 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_udemy/src/pages/client/services/list/client_services_list_controller.dart';
-import 'package:flutter/scheduler.dart';
+import 'package:flutter_udemy/src/utils/shared_pref.dart';
+
 class ClientServicesListPage extends StatefulWidget {
   const ClientServicesListPage({super.key});
 
   @override
-  State<ClientServicesListPage> createState() => _ClientServicesListPageState();
+  State<ClientServicesListPage> createState() => _ClientServicesListState();
 }
 
-class _ClientServicesListPageState extends State<ClientServicesListPage> {
-
+class _ClientServicesListState extends State<ClientServicesListPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: Center(
-        child: ElevatedButton(
-          onPressed:(){}  ,// _con.logout(),
-          child: Text('Cerrar Sesión'),
-        ),
+        child: Text('Servicios'),
       ),
     );
   }
