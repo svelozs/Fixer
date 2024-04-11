@@ -27,7 +27,7 @@ class _MyAppState extends State<MyApp> {
         'login': (BuildContext context) => loginPage(),
         'register': (BuildContext context) => RegisterPage(),
         'clientregister': (BuildContext context) => ClientRegister(),
-        'client/services/list': (BuildContext context) => ClientProductsListPage(),
+        'client/services/list': (BuildContext context) => ClientServicesListPage(),
       },
       theme: ThemeData(
         primaryColor: MyColors.primaryColor

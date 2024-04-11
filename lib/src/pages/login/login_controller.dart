@@ -7,43 +7,48 @@ import 'package:flutter_udemy/src/utils/shared_pref.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class LoginController {
-  late BuildContext context;
-  TextEditingController emailController = TextEditingController();
-  TextEditingController passwordController = TextEditingController();
+  BuildContext? context;
+  TextEditingController emailController = new TextEditingController();
+  TextEditingController passwordController = new TextEditingController();
+
 
   UsersProvider usersProvider = new UsersProvider();
   SharedPref _sharedPref = new SharedPref();
 
-  Future<void> init(BuildContext context) async {
+  Future init(BuildContext context) async {
     this.context = context;
     await usersProvider.init(context);
+
+    User user = User.fromJson(await _sharedPref.read('user') ?? {});
+
+    print('Usuario: ${user.toJson()}');
+
+    if (user?.sessionToken != null) {
+      Navigator.pushNamedAndRemoveUntil(
+          context, 'client/services/list', (route) => false);
+    }
   }
 
   void goToRegisterPage() {
-    Navigator.pushNamed(context, 'register');
+    Navigator.pushNamed(context!, 'register');
   }
 
-  Future<void> login() async {
+  void login() async {
     String email = emailController.text.trim();
     String password = passwordController.text.trim();
     ResponseApi? responseApi = await usersProvider.login(email, password);
+
+    if(responseApi!.success!){
+      User user = User.fromJson(responseApi.data);
+      _sharedPref.save('user', user.toJson);
+      Navigator.pushNamedAndRemoveUntil(context!, 'client/services/list', (route) => false);
+    }else{
+      MySnackbar.show(context!, responseApi!.message!);
+    }
+
     print('Respuesta object: $responseApi');
     print('Respuesta: ${responseApi?.toJson()}');
-
-    if (responseApi == null) {
-      MySnackbar.show(context, 'Error desconocido');
-      return;
-    }
-
-    if (responseApi.success ?? false) {
-      User user = User.fromJson(responseApi.data);
-      _sharedPref.save('user', user.toJson());
-      Navigator.pushNamedAndRemoveUntil(context, 'client/services/list', (route) => false);
-    } else {
-      MySnackbar.show(context, responseApi.message ?? 'Error desconocido');
-    }
   }
-
 
 }
 

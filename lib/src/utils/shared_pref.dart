@@ -8,13 +8,11 @@ class SharedPref {
     prefs.setString(key, json.encode(value));
   }
 
-  Future<dynamic?> read(String key) async {
+  Future<dynamic> read(String key) async {
     final prefs = await SharedPreferences.getInstance();
-
-    final jsonString = prefs.getString(key);
-    if (jsonString == null) return null;
-
-    return json.decode(jsonString);
+    final value = prefs.getString(key);
+    if (value == null) return null;
+    return json.decode(value);
   }
 
   Future<bool> contains (String key)async{
@@ -26,4 +24,5 @@ class SharedPref {
     final prefs = await SharedPreferences.getInstance();
     return prefs.remove(key);
   }
+
 }
